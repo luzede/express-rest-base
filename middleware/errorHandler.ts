@@ -3,6 +3,12 @@ import { ZodError } from "zod";
 import { errors } from "jose";
 import { JsonWebTokenError } from "jsonwebtoken";
 
+// ERROR HANDLER MIDDLEWARE
+// This middleware is used to handle errors thrown in the application
+// It is important to place this middleware at the end of the middleware chain
+
+// Every type of error that you want to handle should be checked here
+
 export default function errorHandler(
 	err: Error,
 	_req: Request,

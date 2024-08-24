@@ -7,11 +7,17 @@ import config from "../utils/config";
 const loginRouter = express.Router();
 
 loginRouter.post("/jose/login", async (req, res) => {
+	// Parse the request body to get the username and password
 	const body = loginSchema.parse(req.body);
+
+	/* Check if the username and password are correct
+	...
+	*/
 
 	// Used for encoding strings to Uint8Array
 	const encoder = new TextEncoder();
 
+	// Create a new JSON Web Token
 	const token = await new jose.SignJWT({
 		username: body.username,
 	})

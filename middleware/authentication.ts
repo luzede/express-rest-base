@@ -13,12 +13,17 @@ export async function authentication_jose(
 	next: NextFunction,
 ) {
 	const token = getToken(req);
+
+	// Encoder to turn string into Uint8Array
 	const encoder = new TextEncoder();
+
+	// Verifying the token, if it is invalid, it will throw an error
 	const { payload } = await jose.jwtVerify<{ sub: string; username: string }>(
 		token,
 		encoder.encode(config.JSON_SECRET),
 	);
 
+	// Attach the username to the res.locals object
 	res.locals.username_one = payload.username;
 	next();
 }
@@ -30,17 +35,21 @@ export function authentication_jsonwebtoken(
 ) {
 	const token = getToken(req);
 
+	// Verifying the token, if it is invalid, it will throw an error
 	const payload = jwt.verify(token, config.JSON_SECRET) as {
 		username: string;
 		sub: string;
 	};
 
+	// Attach the username to the res.locals object
 	res.locals.username_two = payload.username;
 	next();
 }
 
 // ### Helper Functions ###
+
 function getToken(req: Request): string {
+	// Get the token from the authorization header
 	const authorization = req.get("authorization");
 	if (!authorization || !authorization.startsWith("Bearer ")) {
 		return "";

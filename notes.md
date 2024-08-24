@@ -73,3 +73,9 @@ For more detailed information: https://fullstackopen.com/en/part4/testing_the_ba
 | Input validation failure |  400 Bad Request  |
 | Already exists or double submit | 409 Conflic  |
 | Unauthorized | 401 Unauthorized |
+
+
+
+
+## Extra notes
+1. `ts-node-dev index.ts` does the same thing as `nodemon index.ts`, but `ts-node-dev` is more suited for TypeScript files and `nodemon` requires `ts-node` to be installed to work.
